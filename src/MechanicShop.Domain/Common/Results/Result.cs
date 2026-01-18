@@ -80,6 +80,14 @@ public sealed class Result<TValue> : IResult<TValue>
     public TNextValue Match<TNextValue>(Func<TValue, TNextValue> onValue, Func<List<Error>, TNextValue> onError)
         => IsSuccess ? onValue(Value!) : onError(Errors);
 
+    /* public static implicit operator Result<TValue>(TValue value)
+        => new(value);
+    This is a user-defined implicit conversion operator.
+    It tells the C# compiler:
+        “Whenever you have a TValue and a Result<TValue> is expected, automatically convert the value into a Result<TValue>.”
+    No cast required.
+    */
+
     public static implicit operator Result<TValue>(TValue value)
         => new(value);
 
