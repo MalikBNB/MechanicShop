@@ -1,6 +1,6 @@
 using MechanicShop.Domain.Common;
 
-namespace MechanicShop.Domain.Workorders.Events;
+namespace MechanicShop.Domain.WorkOrders.Events;
 
 public sealed class WorkOrderCompleted : DomainEvent
 {

@@ -9,4 +9,4 @@ public interface ICachedQuery
     TimeSpan Expiration { get; }
 }
 
-public interface ICachedQuery<TRequest> : IRequest<TRequest>, ICachedQuery;
+public interface ICachedQuery<TResponse> : IRequest<TResponse>, ICachedQuery;
