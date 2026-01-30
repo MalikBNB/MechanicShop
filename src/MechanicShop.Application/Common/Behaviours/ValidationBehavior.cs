@@ -28,7 +28,7 @@ public class ValidationBehavior<TRequest, TResponse>(IValidator<TRequest>? valid
 
         if (validationResult.IsValid)
         {
-            return await next();
+            return await next(ct);
         }
 
         var errors = validationResult.Errors

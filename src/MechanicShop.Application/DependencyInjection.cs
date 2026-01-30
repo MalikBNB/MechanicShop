@@ -10,9 +10,29 @@ public static class DependencyInjection
     {
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
+        /*
+        Registers all:
+            IRequestHandler<TRequest, TResponse>
+            INotificationHandler<T>
+        Found in the Application assembly
+        */
         services.AddMediatR(cfg =>
         {
-            cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()); //Scans the current assembly and Automatically registers all classes that implement: IValidator<T>
+
+            /*
+            These are cross-cutting concerns applied to every request. Think of them like ASP.NET middleware, but per request/command/query.
+
+            For a request:
+                await mediator.Send(command);
+            Pipeline runs like this:
+                ValidationBehavior
+                → PerformanceBehaviour
+                → UnhandledExceptionBehaviour
+                → CachingBehavior
+                → Handler
+            (Then unwinds back up)
+            */
             cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
             cfg.AddOpenBehavior(typeof(PerformanceBehaviour<,>));
             cfg.AddOpenBehavior(typeof(UnhandledExceptionBehaviour<,>));
