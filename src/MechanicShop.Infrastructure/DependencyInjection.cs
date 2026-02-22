@@ -39,14 +39,14 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IAppDbContext>(provider => provider.GetRequiredService<AppDbContext>());
-
         services.AddScoped<ApplicationDbContextInitialiser>();
 
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(options =>
+        })
+        .AddJwtBearer(options =>
         {
             var jwtSettings = configuration.GetSection("JwtSettings");
 
@@ -90,16 +90,12 @@ public static class DependencyInjection
             Expiration = TimeSpan.FromMinutes(10), // L2, L3
             LocalCacheExpiration = TimeSpan.FromSeconds(30), // L1
         });
+
         services.AddScoped<IWorkOrderPolicy, WorkOrderPolicy>();
-
         services.AddScoped<ITokenProvider, TokenProvider>();
-
         services.AddScoped<IInvoicePdfGenerator, InvoicePdfGenerator>();
-
         services.AddScoped<INotificationService, NotificationService>();
-
         services.AddScoped<IWorkOrderNotifier, SignalRWorkOrderNotifier>();
-
         services.AddHostedService<OverdueBookingCleanupService>();
 
         return services;

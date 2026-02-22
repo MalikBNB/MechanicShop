@@ -44,6 +44,12 @@ public class AppDbContext(
         return await base.SaveChangesAsync(cancellationToken);
     }
 
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+        builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+    }
+
     private async Task DispatchDomainEventsAsync(CancellationToken cancellationToken)
     {
         var domainEntities = ChangeTracker.Entries()
