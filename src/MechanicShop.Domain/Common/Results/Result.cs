@@ -82,10 +82,10 @@ public sealed class Result<TValue> : IResult<TValue>
 
     /* public static implicit operator Result<TValue>(TValue value)
         => new(value);
-    This is a user-defined implicit conversion operator.
-    It tells the C# compiler:
+        This is a user-defined implicit conversion operator.
+        It tells the C# compiler:
         “Whenever you have a TValue and a Result<TValue> is expected, automatically convert the value into a Result<TValue>.”
-    No cast required.
+        No cast required.
     */
 
     public static implicit operator Result<TValue>(TValue value)
