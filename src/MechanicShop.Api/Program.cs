@@ -1,4 +1,4 @@
-using MechanicShop.Client;
+using MechanicShop.Api.Components;
 using MechanicShop.Infrastructure.Data;
 using MechanicShop.Infrastructure.RealTime;
 using Scalar.AspNetCore;
@@ -43,10 +43,12 @@ app.UseCoreMiddlewares(builder.Configuration);
 app.MapControllers();
 app.UseAntiforgery();
 app.MapStaticAssets();
+
 app.MapRazorComponents<App>()
     .AllowAnonymous()
     .AddInteractiveServerRenderMode()
     .AddAdditionalAssemblies(typeof(MechanicShop.Client._Imports).Assembly);
+
 app.MapHub<WorkOrderHub>("/hubs/workorders");
 
 app.Run();
